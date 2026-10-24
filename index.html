@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Colección de Personajes</title>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <section class="hero is-link">
+  <div class="hero-body has-text-centered">
+    <p class="title">Link hero</p>
+    <p class="subtitle">Link subtitle</p>
+  </div>
+</section>
+<div class ="column"></div>
+
+<div id="grid-personajes" class="columns is-multiline">
+
+    <div class="card is-one-quarter">
+      <div class="card-image">
+        <figure class="image is-4by3">
+          <img src="https://preview.redd.it/maliketh-the-black-blade-v0-twt642ro9u091.jpg?width=1080&crop=smart&auto=webp&s=4b4e11a0048ca016c1b9932fdeeb15133cd13c36"
+           alt="Maliketh the black blade" />
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4">Nombre del Personaje</p>
+            <p class="subtitle is-6">Rol: Daño / Tanque / Apoyo</p>
+          </div>
+        </div>
+        <div class="content">
+          Breve descripción o origen del personaje...
+          <br />
+          <small>Fecha de creación</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE DETALLE COMPLETO -->
+<div id="modal-detalle" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-nombre">
+  <div class="modal-background" onclick="cerrarModal()"></div>
+  <div class="modal-content">
+    <div class="box" style="background-color: #0d1b2a; color: white; border: 2px solid #f1c40f;">
+      <article class="media">
+        <!-- Imagen más grande o diferente del personaje -->
+        <div class="media-left">
+          <figure class="image is-128x128">
+            <img id="modal-imagen" src="" alt="Imagen de detalle" style="object-fit: cover; border-radius: 8px;" />
+          </figure>
+        </div>
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <strong id="modal-nombre" class="title is-3 has-text-white">Nombre del Personaje</strong><br />
+              <span id="modal-rol" class="tag is-warning">Rol</span>
+            </p>
+            <p><strong>Origen:</strong> <span id="modal-origen"></span></p>
+            <p><strong>Lore / Historia:</strong></p>
+            <p id="modal-descripcion" class="has-text-grey-lighter"></p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+  <!-- Botón para cerrar la ventana -->
+  <button class="modal-close is-large" aria-label="close" onclick="cerrarModal()"></button>
+</div>
+
+
+
+
+        <script src="js/script.js"></script> 
+    </body>
+</html>
