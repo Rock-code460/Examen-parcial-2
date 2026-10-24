@@ -18,17 +18,30 @@ let personajes = [
   },
   {
     id: "3",
-    nombre: "Starscourge Radahn",
-    rol: "Shardbearer",
-    origen: "Caelid",
-    imagen: "https://upload.wikimedia.org/wikipedia/en/d/dc/Starscourge_Radahn_concept_art.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail_unscaled",
-    descripcion: "Starscourge Radahn, the demigod who halted the stars."
+    nombre: "Fire Giant",
+    rol: "Legacy Dungeon Boss",
+    origen: "Mountaintops of the Giants",
+    imagen: "https://i.redd.it/zwcq6y53woo91.jpg",
+    descripcion: "The last surviving giant, bound to guard the Forge of the Giants."
 }
 ];
 
-personajes = JSON.parse(localStorage.getItem('personajes')) || [
-  // tu array inicial aquí
-];
+const personajesGuardados = localStorage.getItem("personajes");
+if (personajesGuardados !== null) {
+  const datosGuardados = JSON.parse(personajesGuardados);
+  if (Array.isArray(datosGuardados)) {
+    const arrayInicialMigrado = localStorage.getItem("personajes-initial-array-migrated") === "true";
+    if (arrayInicialMigrado) {
+      personajes = datosGuardados;
+    } else {
+      personajes = Array.from(
+        new Map([...personajes, ...datosGuardados].map(personaje => [personaje.id, personaje])).values()
+      );
+      localStorage.setItem("personajes", JSON.stringify(personajes));
+      localStorage.setItem("personajes-initial-array-migrated", "true");
+    }
+  }
+}
 
 function crearPersonaje(nuevoPersonaje) {
     // Verificar si ya existe un personaje con el mismo ID
@@ -53,7 +66,22 @@ function createPersonaje(nuevosPersonajes) {
     const listaPersonajes = Array.isArray(nuevosPersonajes)
         ? nuevosPersonajes
         : [nuevosPersonajes];
-    personajes.push(...listaPersonajes);
+
+    const idsExistentes = new Set();
+    personajes = personajes.filter(personaje => {
+        if (idsExistentes.has(personaje.id)) {
+            return false;
+        }
+        idsExistentes.add(personaje.id);
+        return true;
+    });
+
+    listaPersonajes.forEach(personaje => {
+        if (!idsExistentes.has(personaje.id)) {
+            personajes.push(personaje);
+            idsExistentes.add(personaje.id);
+        }
+    });
     
     localStorage.setItem('personajes', JSON.stringify(personajes));
     
@@ -62,7 +90,7 @@ function createPersonaje(nuevosPersonajes) {
 
 // Jefes principales desde Radahn hasta el Gigante de Fuego
 createPersonaje([
-    {
+       {
         id: "4",
         nombre: "Morgott, the Omen King",
         rol: "Shardbearer",
@@ -71,13 +99,13 @@ createPersonaje([
         descripcion: "The Omen King and self-proclaimed last king of Leyndell."
     },
     {
-        id: "5",
-        nombre: "Fire Giant",
-        rol: "Legacy Dungeon Boss",
-        origen: "Mountaintops of the Giants",
-        imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3c7YPUsuVZdWiqwGrprdNpvrjFsLWa9l7-H_UYbTDzQ&s=10",
-        descripcion: "The last survivor of the giants, guarding the Forge of the Giants."
-    },
+    id: "5",
+    nombre: "Starscourge Radahn",
+    rol: "Shardbearer",
+    origen: "Caelid",
+    imagen: "https://upload.wikimedia.org/wikipedia/en/d/dc/Starscourge_Radahn_concept_art.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail_unscaled",
+    descripcion: "Starscourge Radahn, the demigod who halted the stars."
+},
     {
         id: "6",
         nombre: "Rykard, Lord of Blasphemy",
@@ -85,6 +113,24 @@ createPersonaje([
         origen: "Volcano Manor, Mt. Gelmir",
         imagen: "https://static.wikia.nocookie.net/eldenring/images/1/1c/Jefe_Rykard.png/revision/latest?cb=20240828180132&path-prefix=es",
         descripcion: "A shardbearer who embraced the blasphemous serpent and wields a Great Rune."
+    }
+    ,
+    {
+        id: "7",
+        nombre: "Malenia, Blade of Miquella",
+        rol: "Great Rune Boss",
+        origen: "Elphael, Brace of the Haligtree",
+        imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL7vf0eRLWuOAYAAJJYWzCUmOQTxyEbKHSYiNCHrhQVjtS82CB8LxlggSu&s=10",
+        descripcion: "The Blade of Miquella and Goddess of Rot, an undefeated swordswoman who fought Starscourge Radahn to a stalemate."
+    }
+     ,
+    {
+        id: "8",
+        nombre: "Mohg, Lord of Blood",
+        rol: "Shardbearer",
+        origen: "Mohgwyn Palace",
+        imagen: "https://i.redd.it/69634rnfknoa1.jpg",
+        descripcion: "A demigod who founded the Mohgwyn dynasty and sought to raise Miquella to godhood."
     }
 ]);
 
@@ -167,6 +213,8 @@ function eliminarPersonaje(id) {
     renderizarGrid();
 }
 
+//eliminarPersonaje("7");
+
 // --- VER DETALLE ---
 function mostrarDetalle(id) {
     const personaje = personajes.find(item => item.id === id);
@@ -203,4 +251,3 @@ function prepararEdicion(id) {
         console.log("Editando a:", personaje.nombre);
     }
 }
-
