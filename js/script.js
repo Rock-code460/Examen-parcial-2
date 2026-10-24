@@ -30,6 +30,24 @@ personajes = JSON.parse(localStorage.getItem('personajes')) || [
   // tu array inicial aquí
 ];
 
+function crearPersonaje(nuevoPersonaje) {
+    // Verificar si ya existe un personaje con el mismo ID
+    let existe = personajes.some(item => item.id === nuevoPersonaje.id);
+
+    if (!existe) {
+        personajes.push(nuevoPersonaje);
+        
+        // Guardar la versión limpia y actualizada en localStorage
+        localStorage.setItem('personajes', JSON.stringify(personajes));
+        
+        // Volver a renderizar la cuadrícula
+        renderizarGrid();
+        console.log("Personaje agregado correctamente.");
+    } else {
+        console.log("¡Error! Este personaje ya existe en la colección.");
+    }
+}
+
 // Método para agregar un nuevo personaje a la lista
 function createPersonaje(nuevosPersonajes) {
     const listaPersonajes = Array.isArray(nuevosPersonajes)
