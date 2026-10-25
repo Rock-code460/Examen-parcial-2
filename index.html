@@ -10,7 +10,9 @@
     </head>
 
     <body>
-        <section class="hero" style="min-height: 200px; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://miro.medium.com/1*vEdhfXk0Ii8prHq8fn9YkQ.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+  
+      
+      <section class="hero" style="min-height: 200px; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://miro.medium.com/1*vEdhfXk0Ii8prHq8fn9YkQ.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
           <div class="hero-body has-text-centered">
     <p class="title">Elden Ring Character collection</p>
     <p class="subtitle has-text-grey-lighter">Explore the world of The Lands Between</p>
@@ -19,10 +21,30 @@
 </section>
 <div class ="column"></div>
 
+  <div class="navbar">
+  <div class="navbar-item">
+    <div class="field">
+      <!-- Added 'has-icons-left' so the emoji is a real element instead of a placeholder -->
+      <p class="control has-icons-left">
+        <input id="input-busqueda" class="input is-rounded" type="text" placeholder="Buscar jefe por nombre o rol..." style="width: 300px;">
+        <span class="icon is-small is-left" style="opacity: 1;">
+          🔍
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="navbar-item">
+    <button class="button is-danger is-small" onclick="reiniciarColeccion()">
+      Reset to Default 🔄
+    </button>
+  </div>
+</div>
+</div>
+
+
 <!-- MAIN CONTAINER -->
 <section class="section">
-  <div class="container">
-    <h2 class="title is-3 has-text-white">Elden Ring Boss collection</h2>
+  
     
     <!-- Este div empieza VACÍO. Tu función JavaScript lo llenará automáticamente -->
     <div id="grid-personajes" class="columns is-multiline"></div>
@@ -58,6 +80,73 @@
   </div>
   <!-- Botón para cerrar la ventana -->
   <button class="modal-close is-large" aria-label="close" onclick="cerrarModal()"></button>
+</div>
+
+<!-- Edit Modal -->
+<div id="modal-editar" class="modal">
+  <div class="modal-background" onclick="cerrarModalEditar()"></div>
+  <div class="modal-card">
+    <header class="modal-card-head" style="background-color: #1a1a1a; border-bottom: 1px solid #333;">
+      <p class="modal-card-title has-text-white">Edit Boss Details</p>
+      <button class="delete" aria-label="close" onclick="cerrarModalEditar()"></button>
+    </header>
+    <section class="modal-card-body" style="background-color: #121212; color: white;">
+      <!-- Hidden input to track ID -->
+      <input type="hidden" id="edit-id">
+
+      <div class="field">
+        <label class="label has-text-white">Name</label>
+        <div class="control">
+          <input id="edit-name" class="input" type="text">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label has-text-white">Role</label>
+        <div class="control">
+          <input id="edit-role" class="input" type="text">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label has-text-white">Category</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select id="edit-category">
+              <option value="main">Main</option>
+              <option value="dlc">DLC</option>
+              <option value="optional">Optional</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label has-text-white">Origin</label>
+        <div class="control">
+          <input id="edit-origin" class="input" type="text">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label has-text-white">Image URL</label>
+        <div class="control">
+          <input id="edit-image" class="input" type="text">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label has-text-white">Description / Lore</label>
+        <div class="control">
+          <textarea id="edit-description" class="textarea" rows="4"></textarea>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot" style="background-color: #1a1a1a; border-top: 1px solid #333;">
+      <button class="button is-success" onclick="guardarEdicion()">Save Changes</button>
+      <button class="button" onclick="cerrarModalEditar()">Cancel</button>
+    </footer>
+  </div>
 </div>
 
 
