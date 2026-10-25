@@ -138,7 +138,7 @@ createPersonaje([
         name: "Rykard, Lord of Blasphemy",
         role: "Shardbearer",
         origin: "Volcano Manor, Mt. Gelmir",
-        image: "https://static.wikia.nocookie.net/eldenring/images/1/1c/Jefe_Rykard.png",
+        image: "https://images.steamusercontent.com/ugc/1860555511760673263/DC5C6B47BF1BD5F1F7851CC6541DEE585A21E872/",
         description: "The God-Devouring Serpent is a massive coiled serpent found at the Volcano Manor in Mt. Gelmir, and Rykard, Lord of Blasphemy is its true form that's revealed after the first phase is defeated. When Rykard offered himself up to the serpent in a pursuit of immortality, most of his followers turned on him and sought to bring him down with the Serpent-Hunter."
     }
     ,
