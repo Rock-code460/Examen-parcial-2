@@ -69,8 +69,7 @@ if (personajesGuardados !== null) {
 }
 
 function crearPersonaje(nuevoPersonaje) {
-    let existe = personajes.some(item => item.id === nuevoPersonaje.id);
-
+    let existe = personajes.some(item => String(item.id) === String(nuevoPersonaje.id));
     if (!existe) {
         personajes.push(nuevoPersonaje);
         
@@ -87,7 +86,7 @@ function crearPersonaje(nuevoPersonaje) {
 
 // Método para agregar un nuevo personaje a la lista
 function createPersonaje(nuevosPersonajes) {
-    const listaPersonajes = Array.isArray(nuevosPersonajes)
+    let listaPersonajes = Array.isArray(nuevosPersonajes)
         ? nuevosPersonajes
         : [nuevosPersonajes];
 
@@ -282,7 +281,7 @@ function eliminarPersonaje(id) {
     if (!confirmar) return;
 
     // Filtrar el arreglo para quitar el elemento con ese ID
-    personajes = personajes.filter(item => item.id !== id);
+    personajes = personajes.filter(item => String(item.id) !== String(id));
 
     // Actualizar localStorage y volver a pintar la cuadrícula[cite: 1, 2]
     localStorage.setItem("personajes", JSON.stringify(personajes));
